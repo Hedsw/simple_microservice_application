@@ -4,7 +4,7 @@ message Person {
     required string firstname = 1;
     required string lastname = 2;
     required string job = 3;
-    required string roll = 4;
+    required string role = 4;
 }
 
 service ConverterCall {
