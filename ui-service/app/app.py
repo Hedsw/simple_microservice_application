@@ -16,7 +16,8 @@ def process_text():
     input_text = request.form['input_text']
 
     output_text = input_text
-
+    # This have to fix as a microservice
+    
     if 'to_lower' in request.form:
         output_text = output_text.lower()
 
