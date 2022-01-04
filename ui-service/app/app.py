@@ -5,7 +5,6 @@ import requests
 import os
 
 app = Flask(__name__)
-
 @app.route('/')
 @app.route('/index')
 def index():
@@ -19,7 +18,14 @@ def process_text():
     # This have to fix as a microservice
     
     if 'to_lower' in request.form:
-        output_text = output_text.lower()
+        TO_LOWER_SERVICE_PORT = os.environ.get('TO_LOWER_SERVICE_PORT', '5003')
+        TO_LOWER_SERVICE_NAME = os.environ.get('TO_LOWER_SERVICE_NAME', 'text-to_lower-service')
+        TO_LOWER_SERVICE_HOST = 'http://' + TO_LOWER_SERVICE_NAME + ':' + TO_LOWER_SERVICE_PORT
+        try:
+            response = requests.get(TO_LOWER_SERVICE_HOST + '/api/v0/to_lower', json={'input_text': str(output_text)})
+            output_text = response.json()['output_text']
+        except requests.exceptions.RequestException as e:
+            output_text = str(e)
 
     if 'to_upper' in request.form:
         TO_UPPER_SERVICE_PORT = os.environ.get('TO_UPPER_SERVICE_PORT', '5002')
