@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Person {
+    string inputstring = 1;
+}
+
+service ConverterCall {
+    rpc stringconverter(Person) returns (Person) {}
+}
+
