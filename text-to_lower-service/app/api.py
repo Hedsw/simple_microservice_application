@@ -19,7 +19,6 @@ def text_to_lower():
     output_text = input_text.lower()
     return jsonify({"output_text": str(output_text)})
 
-
 @app.route('/')
 def index():
     return 'text-revert-service'
